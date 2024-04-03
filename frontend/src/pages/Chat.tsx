@@ -1,7 +1,9 @@
-
+import { Box } from "@mui/material";
 
 const Chat = () => {
-    return <div>Chat</div>;
-};
+    return (
+        <Box></Box>
+    )
+}
 
 export default Chat;
