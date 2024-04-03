@@ -4,6 +4,8 @@ type Props = {
     name: string;
     label: string;
     type: string;
+    value?: string; // Add value prop
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void; // Add onChange prop
 };
 
 const CustomizedInput = (props: Props) => {
@@ -22,6 +24,8 @@ const CustomizedInput = (props: Props) => {
                   color: "white",
                 },
               }}
+            value={props.value} // Pass value prop
+            onChange={props.onChange} // Pass onChange prop
         />
     );
 };

@@ -1,26 +1,30 @@
+
 import { IoIosLogIn } from "react-icons/io";
 import { Box, Typography, Button } from "@mui/material";
 import CustomizedInput from "../components/shared/CustomizedInput";
 import { toast } from "react-hot-toast";
 import { useAuth } from "../context/AuthContext";
+import { useState } from "react";
 
 const Login = () => {
-
   const auth = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
+    console.log(email);
+    console.log(password);
     try {
       toast.loading("Signing In", { id: "login" });
       await auth?.login(email, password);
       toast.success("Signed In Successfully", { id: "login" });
     } catch (error) {
-        console.log(error);
-        toast.error("Signing In Failed", { id: "login" });
+      console.log(error);
+      toast.error("Signing In Failed", { id: "login" });
     }
   };
+
   return (
     <Box width={"100%"} height={"100%"} display="flex" flex={1}>
       <Box padding={8} mt={8} display={{ md: "flex", sm: "none", xs: "none" }}>
@@ -60,8 +64,20 @@ const Login = () => {
             >
               Login
             </Typography>
-            <CustomizedInput type="email" name="email" label="Email" />
-            <CustomizedInput type="password" name="password" label="Password" />
+            <CustomizedInput
+              type="email"
+              name="email"
+              label="Email"
+              value={email} // Pass value prop
+              onChange={(e) => setEmail(e.target.value)} // Handle onChange event
+            />
+            <CustomizedInput
+              type="password"
+              name="password"
+              label="Password"
+              value={password} // Pass value prop 
+              onChange={(e) => setPassword(e.target.value)} // Handle onChange event
+            />
             <Button
               type="submit"
               sx={{
